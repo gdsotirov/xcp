@@ -10,7 +10,7 @@ libxcpy.a: libxcpy.c libxcpy.h
 	$(AR) r $@ libxcpy.o
 
 xcp: xcp.c libxcpy.a
-	$(CC) $(CCFLAGS) -o xcp $?
+	$(CC) $(CCFLAGS) -o xcp $^
 
 clean:
 	$(RM) xcp libxcpy.a libxcpy.o
