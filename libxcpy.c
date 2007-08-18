@@ -94,6 +94,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
 
     while ( (readbts = read(srcfd, buffer, buf_size)) > 0 ) {
         if ( write(destfd, buffer, readbts) != readbts ) {
+            free(buffer);
             return -1;
         }
     }
@@ -103,7 +104,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     /* close file descriptors */
     if ( close(destfd) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 106: %s\n", strerror(errno));
+        printf("error 107: %s\n", strerror(errno));
 #else
         printf("error: Error closing file '%s'!\n", destf);
 #endif
@@ -111,7 +112,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     }
     if ( close(srcfd) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 114: %s\n", strerror(errno));
+        printf("error 115: %s\n", strerror(errno));
 #else
         printf("error: Error closing file '%s'!\n", srcf);
 #endif
