@@ -36,13 +36,15 @@ int fexists(FILENAME fname) {
 int filecopy(FILENAME srcf, FILENAME destf) {
     int srcfd;      /* source file descriptor */
     int destfd;     /* destination file descriptor */
+#ifdef _SYS_STAT_H
     struct stat f_stat;
+#endif
     char * buffer;  /* file copy buffer */
     int readbts = 0;
 
     /* check existance of the source file */
     if ( !fexists(srcf) ) {
-        printf("error 45: Source file '%s' don't exists!\n", srcf);
+        printf("error 47: Source file '%s' don't exists!\n", srcf);
         return -1;
     }
 
@@ -50,7 +52,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     if ( !fexists(destf) ) {
         if ( (destfd = creat(destf, 00600)) == -1 ) {
 #ifdef _ERRNO_H
-            printf("error 53: %s\n", strerror(errno));
+            printf("error 55: %s\n", strerror(errno));
 #else
             printf("error: Can't create file '%s'!\n", destf);
 #endif
@@ -66,7 +68,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     /* open the source file */
     if ( (srcfd = open(srcf, 0)) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 69: %s\n", strerror(errno));
+        printf("error 71: %s\n", strerror(errno));
 #else
         printf("error: Can't open file '%s'!\n", srcf);
 #endif
@@ -76,7 +78,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     /* open the destination file */
     if ( (destfd = open(destf, 1)) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 79: %s\n", strerror(errno));
+        printf("error 81: %s\n", strerror(errno));
 #else
         printf("error: Can't open file '%s'!\n", srcf);
 #endif
@@ -85,7 +87,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
 
     if ( (buffer = malloc(buf_size)) == NULL ) {
 #ifdef _ERRNO_H
-        printf("error 88: %s", strerror(errno));
+        printf("error 90: %s", strerror(errno));
 #else
         printf("error: Can't allocate memory for the copy operation!");
 #endif
@@ -104,7 +106,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     /* close file descriptors */
     if ( close(destfd) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 107: %s\n", strerror(errno));
+        printf("error 109: %s\n", strerror(errno));
 #else
         printf("error: Error closing file '%s'!\n", destf);
 #endif
@@ -112,7 +114,7 @@ int filecopy(FILENAME srcf, FILENAME destf) {
     }
     if ( close(srcfd) == -1 ) {
 #ifdef _ERRNO_H
-        printf("error 115: %s\n", strerror(errno));
+        printf("error 117: %s\n", strerror(errno));
 #else
         printf("error: Error closing file '%s'!\n", srcf);
 #endif
