@@ -1,0 +1,6 @@
+*.a
+*.o
+.cproject
+.project
+.settings
+xcp
